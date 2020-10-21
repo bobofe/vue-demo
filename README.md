@@ -73,7 +73,9 @@ I am parents destroyed
 ### 路由跳转页面的方法
 
 【1】直接修改地址栏地址
+
 【2】在页面中点解路由跳转链接
+
 【3】在代码逻辑中跳转
 
 ### 路由分类
@@ -96,6 +98,7 @@ I am parents destroyed
 ### 动态路由匹配
 
 【1】特点：同一个组件，局部不同。例如：User组件。路由切换时，组件不变，只改变用户id
+
 【2】用法：用:来表示动态路径的参数
 
 ```javascript
@@ -108,6 +111,7 @@ const router = new VueRouter({
 ```
 
 【3】组件内获取动态路由参数：`this.$route.params`
+
 【4】响应路由参数的变化
 
 > 使用`路由参数`时，原来的组件实例会被复用。因为两个路由渲染同一个组件，比起销毁再创建，复用更高效，但是也因此，组件的生命周期beforeCreated、created、beforeMount、mounted不会再调用，只调用beforeUpdate、update。
