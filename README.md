@@ -67,3 +67,75 @@ I am parents destroyed
 总结：父子组件生命周期如下
 
 父组件beforeCreated → 父组件created → 父组件beforeMount → 子组件beforeCreated → 子组件created → 子组件beforeMount → 子组件mounted → 父组件mounted → 父组件beforeUpdate → 子组件beforeUpdate → 子组件updated → 父组件updated → 父beforeDestroy→ 子组件beforeDestroy → 子组件destroyed → 父组件destroyed
+
+## 路由
+
+### 路由跳转页面的方法
+
+【1】直接修改地址栏地址
+【2】在页面中点解路由跳转链接
+【3】在代码逻辑中跳转
+
+### 路由分类
+
+根据是否跳转新的页面：
+
++ 跳转新页面路由
+  + 普通路由
+  + 重定向路由
++ 不跳转新页面路由
+  + 动态路由
+  + 嵌套路由：动态路由 + 子路由
+
+```text
+  动态路由 VS 嵌套路由
+  ①对于同一组件，动态路由不同的地方比较少，嵌套路由不同的地方比较多
+  ②嵌套路由实际上是动态路由和子路由的组合
+```
+
+### 动态路由匹配
+
+【1】特点：同一个组件，局部不同。例如：User组件。路由切换时，组件不变，只改变用户id
+【2】用法：用:来表示动态路径的参数
+
+```javascript
+const router = new VueRouter({
+  routes: [
+    // 动态路径参数 以冒号开头
+    { path: '/user/:id', component: User }
+  ]
+})
+```
+
+【3】组件内获取动态路由参数：`this.$route.params`
+【4】响应路由参数的变化
+
+> 使用`路由参数`时，原来的组件实例会被复用。因为两个路由渲染同一个组件，比起销毁再创建，复用更高效，但是也因此，组件的生命周期beforeCreated、created、beforeMount、mounted不会再调用，只调用beforeUpdate、update。
+
+因此，常规方法并不能检测到路由的跳转
+
+解决方案：
+
+① 用 watch 监听 $route 对象
+
+```javascript
+watch: {
+  $route(to, from) {
+    // 对路由变化作出响应...
+    console.error(to)
+    console.error(from)
+  }
+}
+```
+
+![to](./src/assets/to.png)
+![from](./src/assets/from.png)
+
+② 用 beforeRouteUpdate
+
+```javascript
+beforeRouteUpdate (to, from, next) {
+  // react to route changes...
+  // don't forget to call next()
+}
+```

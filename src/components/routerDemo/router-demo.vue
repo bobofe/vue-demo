@@ -1,12 +1,14 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
     <ul>
       <li>
+        <router-link to="/timeLine">to + path 跳转到 生命周期组件</router-link>
+      </li>
+      <li>
+        <router-link :to='{name:"HelloWorld"}'>to + name 跳转到 HelloWorld</router-link>
       </li>
     </ul>
-    <h2>Ecosystem</h2>
   </div>
 </template>
 
@@ -15,7 +17,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Router'
     }
   }
 }
