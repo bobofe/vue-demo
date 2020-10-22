@@ -185,3 +185,40 @@ beforeRouteUpdate (to, from, next) {
 【5】嵌套路由的生命周期
 
 ![生命周期](./src/assets/router-view-circle.png)
+
+### 编程式导航
+
+```text
+  `$router` vs `$route`
+  `$router`是路由实例，`$route`是`routes`中的一个`route`
+```
+
+> 在 vue 实例中，可通过`$router`访问路由实例
+
+路由实例的方法：`this.$router.push()`
+
+> 这个方法会向history栈添加一个新记录，可回退到之前的url
+
+注意： 该方法的参数同`<router-link></router-link>`中`to`的属性相同
+
+该方法或to属性的属性值有多种情况，如下：
+
++ 字符串
+
+  + 子路由
+
+  + 根级别的路由
+
++ 对象：如果对象作为to的属性值，to属性必须为动态属性
+
+  + 有path属性的对象
+
+  + 有path属性且属性值为变量的对象
+
+  + 有name属性的对象
+
+  + 有name属性和params属性的对象
+
+  + 有path属性和query属性的对象
+
+  示例代码见 `/src/components/routerDemo/product.vue`
