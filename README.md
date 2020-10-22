@@ -143,3 +143,45 @@ beforeRouteUpdate (to, from, next) {
   // don't forget to call next()
 }
 ```
+
+### 嵌套路由
+
+【1】特点：不同的组件在同一位置
+
+【2】用法：在`route`中配置 `children`属性
+
+```javascript
+{
+  path: '/product',
+  name: 'product',
+  component: Product,
+  children: [
+    {
+      path: 'milk',
+      name: 'milk',
+      component: Milk
+    },
+    {
+      path: 'apple',
+      name: 'apple',
+      component: Apple
+    }
+  ]
+}
+```
+
+【3】在父组件加载子组件的位置添加`<router-view></router-view>`
+
+【4】子组件的引入方式
+
+① `import` 到父组件中，再注册到`components` 属性上
+
+> 子组件不在同一位置上
+
+② 通过子路由方式
+
+> 子组件在同一位置
+
+【5】嵌套路由的生命周期
+
+![生命周期](./src/assets/router-view-circle.png)

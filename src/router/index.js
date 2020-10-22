@@ -6,6 +6,9 @@ import PassDataProp1 from '@/components/passDataProp/parent1'
 import TimeLine from '@/components/timeLine/parent'
 import RouterDemoIndex from '@/components/routerDemo/router-demo'
 import User from '@/components/routerDemo/user'
+import Product from '@/components/routerDemo/product'
+import Milk from '@/components/routerDemo/milk'
+import Apple from '@/components/routerDemo/apple'
 
 Vue.use(Router)
 
@@ -42,6 +45,24 @@ export default new Router({
       path: '/user/:id',
       name: 'user',
       component: User
+    },
+    // 这是一个嵌套路由
+    {
+      path: '/product',
+      name: 'product',
+      component: Product,
+      children: [
+        {
+          path: 'milk',
+          name: 'milk',
+          component: Milk
+        },
+        {
+          path: 'apple',
+          name: 'apple',
+          component: Apple
+        }
+      ]
     }
   ]
 })
