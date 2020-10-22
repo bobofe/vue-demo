@@ -209,16 +209,38 @@ beforeRouteUpdate (to, from, next) {
 
   + 根级别的路由
 
-+ 对象：如果对象作为to的属性值，to属性必须为动态属性
++ 对象：如果对象作为`to`的属性值，`to`属性必须为动态属性
 
-  + 有path属性的对象
+  + 有`path`属性的对象
 
-  + 有path属性且属性值为变量的对象
+  + 有`path`属性且属性值为变量的对象
 
-  + 有name属性的对象
+  + 有`name`属性的对象
 
-  + 有name属性和params属性的对象
+  + 有`name`属性和`params`属性的对象
 
-  + 有path属性和query属性的对象
+  + 有`path`属性和`query`属性的对象
+
+  + 有`name`属性和`query`属性的对象
+
+> path 和 name 使用其中一个即可；如果提供了path，params会被忽略
+
+路由传参的方式有：`query` 和 `params`
+
+两者的区别：
+
++ `query`通过`path`或`name`切换路由，`params`只能通过`name`切换路由
+
++ `query`通过`this.$route.query`来接收参数，`params`通过`this.$route.params`来接收参数
+
++ `params`一旦设置在路由，就是路由的一部分。
+
+  params是路由的一部分,必须要在路由后面添加参数名。query是拼接在url后面的参数，没有也没关系。如果这个路由有params传参，但是在跳转的时候没有传这个参数，会导致跳转失败或者页面会没有内容。
+
++ `params`的`route`是动态路由，`query`的`route`是普通路由
+
++ `query`传参的以`url`的方式展示，`params`传参以动态路由`url`的方式展示
+
++ `query`相当于`get`请求，页面跳转的时候，可以在地址栏看到请求参数，而`params`相当于`post`请求，参数不会再地址栏中显示.
 
   示例代码见 `/src/components/routerDemo/product.vue`

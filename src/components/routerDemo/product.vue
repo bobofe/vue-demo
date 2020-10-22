@@ -64,6 +64,26 @@
         <button v-on:click="jumpToUser44">子路由：点击跳转到 user44</button>
       </li>
     </ul>
+    <p>参数为有path属性和query属性的对象</p>
+    <ul>
+      <li>
+        <router-link :to="{path: '/user1', query: {id: '33'}}">跳转到user33</router-link>
+        <button v-on:click="jumpToUserQueryPath">点击跳转到 user33</button>
+      </li>
+      <li>
+        <router-link :to="{path: 'milk', query: {id: '33'}}">跳转到milk</router-link>
+      </li>
+      <li>
+        <router-link :to="{path: 'apple', query: {id: '33'}}">跳转到apple</router-link>
+      </li>
+    </ul>
+    <p>参数为有name属性和query属性的对象</p>
+    <ul>
+      <li>
+        <router-link :to="{name: 'user'}">跳转到user33</router-link>
+        <button v-on:click="jumpToUserQueryName">点击跳转到 user33</button>
+      </li>
+    </ul>
     <router-view></router-view>
   </div>
 </template>
@@ -125,6 +145,12 @@ export default {
     },
     jumpToProp2 () {
       this.$router.push({name: 'passDataProp'})
+    },
+    jumpToUserQueryPath () {
+      this.$router.push({path: '/user1', query: {id: '33'}})
+    },
+    jumpToUserQueryName () {
+      this.$router.push({name: 'user', query: {id: '33'}})
     }
   },
   beforeCreate () {

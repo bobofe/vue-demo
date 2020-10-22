@@ -5,6 +5,9 @@
       <li>
         用户id：{{this.$route.params.id}}
       </li>
+       <li>
+        用户id：{{this.$route.query.id}}
+      </li>
     </ul>
   </div>
 </template>

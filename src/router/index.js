@@ -46,6 +46,11 @@ export default new Router({
       name: 'user',
       component: User
     },
+    {
+      path: '/user1',
+      name: 'user1',
+      component: User
+    },
     // 这是一个嵌套路由
     {
       path: '/product',
