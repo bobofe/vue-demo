@@ -244,3 +244,93 @@ beforeRouteUpdate (to, from, next) {
 + `query`相当于`get`请求，页面跳转的时候，可以在地址栏看到请求参数，而`params`相当于`post`请求，参数不会再地址栏中显示.
 
   示例代码见 `/src/components/routerDemo/product.vue`
+
+### 懒加载
+
+#### 路由懒加载
+
+#### 组件懒加载
+
+#### 第三方组件库按需引入
+
+以`element-ui`为例，操作如下：
+
+【1】安装
+
+```bash
+npm i element-ui -S
+```
+
+执行 `npm run build --report`，查看初始体积，如下：
+
+![初始体积1](./src/assets/v1.png)
+![初始体积2](./src/assets/v2.png)
+
+> vendor.js是第三方库的集成，也就是我们在package.json中"dependencies"对象中的那些库以及一些必须的第三方库
+
+由图可知，初始时，vendor的初始体积为123kb，main.css 的初始体积为822bytes
+
+【2】全局引入，在`main.js`中写入
+
+```javascript
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(ElementUI);
+```
+
+执行 `npm run build --report`，查看全局引入体积，如下：
+
+![体积3](./src/assets/v4.png)
+![体积4](./src/assets/v3.png)
+
+由图可知，vendor的体积变为了825kb，main.css 的体积变为了234kb，呃。。。好大！
+
+【3】按需引入组件
+
+借助 babel-plugin-component，我们可以只引入需要的组件，以达到减小项目体积的目的。
+
+首先，安装 babel-plugin-component：
+
+```bash
+npm install babel-plugin-component -D
+```
+
+然后，将 .babelrc 修改为：
+
+```babel
+{
+  "presets": [["es2015", { "modules": false }]],
+  "plugins": [
+    [
+      "component",
+      {
+        "libraryName": "element-ui",
+        "styleLibraryName": "theme-chalk"
+      }
+    ]
+  ]
+}
+```
+
+如果你只希望引入部分组件，比如 Button 和 Select，那么需要在 main.js 中写入以下内容：
+
+```javascript
+import { Button, Select } from 'element-ui';
+// 注意：不需要再单独引入样式
+Vue.component(Button.name, Button);
+Vue.component(Select.name, Select);
+/* 或写为
+ * Vue.use(Button)
+ * Vue.use(Select)
+ */
+```
+
+执行 `npm run build --report`，查看按需引入体积，如下：
+
+![体积3](./src/assets/v8.png)
+![体积4](./src/assets/v7.png)
+
+由图可知，vendor的体积变为了218kb，main.css 的体积变为了46.7kb
+
+由此可见，按需引入大大的减少了打包后的体积。
