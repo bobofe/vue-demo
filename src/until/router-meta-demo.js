@@ -17,7 +17,7 @@ router.beforeEach((to, from, next) => {
   let store = router.app.$store
   if (!store.state.user.data.token && utils.$cookie.get('token')) {
     utils.$axios({
-      url: "https://my-json-server.typicode.com/ryongyon/vue-fast/users?token=" + utils.$cookie.get('token')
+      url: 'https://my-json-server.typicode.com/ryongyon/vue-fast/users?token=' + utils.$cookie.get('token')
     }).then(res => {
       console.log('okok')
       store.dispatch('user/set', res[0])
